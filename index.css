@@ -25,7 +25,7 @@
 }
 
 /* Card container styling */
-.card {
+/* .card {
   width: 280px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -33,6 +33,84 @@
   overflow: hidden;
   transition: transform 0.2s ease;
   text-align: center;
+} */
+/* Base card styling */
+/* .card {
+  width: 280px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  text-align: center;
+} */
+
+/* Base card styling */
+/* Base card styling */
+.card {
+  width: 280px; /* Width of the actual card */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+/* Shimmer container for layout */
+.shimmer-container {
+  display: flex; /* Use flexbox for layout */
+  gap: 20px; /* Space between cards */
+  flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+  justify-content: center; /* Center align the shimmer cards */
+  margin: 20px; /* Add margin around the container */
+}
+
+/* Placeholder styling for shimmer effect */
+.card.shimmer {
+  width: 280px; /* Match the original card width */
+  height: 320px; /* Adjust height as needed */
+  background: #f6f7f8;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Placeholder for image */
+.card.shimmer .card-img {
+  height: 120px; /* Set height for image placeholder */
+  background-color: #e0e0e0; /* Placeholder color */
+}
+
+/* Padding for content area */
+.card.shimmer .card-content {
+  padding: 10px; /* Add padding for content */
+}
+
+/* Shimmer lines for text elements */
+.card.shimmer .shimmer-line {
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+/* Shimmer animation effect */
+.card.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f6f7f8, #e0e0e0, #f6f7f8);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Keyframes for shimmer effect */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .card:hover {
@@ -78,4 +156,9 @@
 }
 .search-btn {
   display: flex;
+}
+.shimmer-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }

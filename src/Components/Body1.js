@@ -1,21 +1,40 @@
 import { restaurantList } from "./Constants";
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { restaurantList2 } from "./Constants2";
+import Shimmer from "./Shimmer";
 
 function filterRestaurants(searchText, restaurants) {
   const result = restaurants.filter((rest) =>
-    rest.name.toLowerCase().includes(searchText.toLowerCase())
+    rest.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
   return result;
 }
 
 const Body1 = () => {
   const [searchText, setSearchText] = useState("KFC");
-  const [restaurants, setRestaurants] = useState(restaurantList);
+  const [restaurants, setRestaurants] = useState(restaurantList2);
+  const [isLoading, setIsLoading] = useState(true);
   function handleClick(e) {
     setSearchText(e.target.value);
   }
-  return (
+
+  // useEffect(() => {
+  //   console.log("restaurant has been changed. Inisde useffect()");
+  //   setRestaurants(restaurantList);
+  //   return () => {
+  //     console.log("clean up task");
+  //   };
+  // }, [restaurants]);
+
+  console.log("render");
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1000);
+
+  return isLoading ? (
+    <Shimmer />
+  ) : (
     <div className="body1">
       <div className="search-container">
         <input
@@ -27,7 +46,7 @@ const Body1 = () => {
         <button
           className="search-btn"
           onClick={() => {
-            const data = filterRestaurants(searchText, restaurants);
+            const data = filterRestaurants(searchText, restaurantList2);
             setRestaurants(data);
           }}
         >
@@ -36,14 +55,14 @@ const Body1 = () => {
         <button
           className="search-btn"
           onClick={() => {
-            setRestaurants(restaurantList);
+            setRestaurants(restaurantList2);
           }}
         >
           Reset
         </button>
       </div>
       {restaurants.map((restaurant, index) => (
-        <RestaurantCard {...restaurant} />
+        <RestaurantCard info={restaurant.info} key={restaurant.info.id} />
       ))}
     </div>
   );
