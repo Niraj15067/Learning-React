@@ -1,7 +1,10 @@
+export const imagePath =
+  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
 export const restaurantList2 = [
   {
     info: {
-      id: "188503",
+      id: "625226",
       name: "Pizza Hut",
       cloudinaryImageId:
         "RX_THUMBNAIL/IMAGES/VENDOR/2024/7/17/faf0bae5-c228-418f-8217-5aee6f9e018f_188503.jpg",
@@ -94,7 +97,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "790839",
+      id: "326931",
       name: "Chinese Wok",
       cloudinaryImageId: "b4817ea5bb972089f419c6f14e5a0bdd",
       locality: "Wardha Road",
@@ -267,7 +270,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "53868",
+      id: "752535",
       name: "KFC",
       cloudinaryImageId:
         "RX_THUMBNAIL/IMAGES/VENDOR/2024/4/17/1b92e544-fce7-45ac-941a-50092e3037a5_53868.JPG",
@@ -341,7 +344,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "54604",
+      id: "456986",
       name: "Domino's Pizza",
       cloudinaryImageId:
         "RX_THUMBNAIL/IMAGES/VENDOR/2024/10/24/f257e6ef-3bb8-455b-ab2d-f60b770c239a_54604.JPG",

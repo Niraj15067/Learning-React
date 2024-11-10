@@ -3,8 +3,14 @@ import ReactDOM from "react-dom/client";
 import * as XYZ from "./Components/Header";
 import Body1 from "./Components/Body1";
 import Footer from "./Components/Footer";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import About from "./Components/About";
+import Error from "./Components/Error";
+import Contact from "./Components/Contact";
+import RestaurantMenu from "./RestaurantMenu";
 
 import HeaderComponent, { Title } from "./Components/Header"; //importing named and default export on the same line.
+import About from "./Components/About";
 const heading1 = React.createElement(
   "h1",
   {
@@ -149,12 +155,41 @@ const AppLayout = () => {
   return (
     <>
       <HeaderComponent />
-      <Body1 />
+      <Outlet />
       <Footer />
     </>
   );
 };
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Body1 />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/home",
+        element: <Body1 />,
+      },
+      {
+        path: "/restaurant/:id",
+        element: <RestaurantMenu />,
+      },
+    ],
+  },
+]);
 
 const d2 = document.getElementById("d2");
 const root = ReactDOM.createRoot(d2);
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);

@@ -3,11 +3,15 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import { restaurantList2 } from "./Constants2";
 import Shimmer from "./Shimmer";
+import NoResult from "./NoResult";
 
-function filterRestaurants(searchText, restaurants) {
+function filterRestaurants(searchText, restaurants, setNoResult) {
   const result = restaurants.filter((rest) =>
     rest.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
+  if (result.length === 0) {
+    setNoResult(true);
+  }
   return result;
 }
 
@@ -15,6 +19,7 @@ const Body1 = () => {
   const [searchText, setSearchText] = useState("KFC");
   const [restaurants, setRestaurants] = useState(restaurantList2);
   const [isLoading, setIsLoading] = useState(true);
+  const [noResult, setNoResult] = useState(false);
   function handleClick(e) {
     setSearchText(e.target.value);
   }
@@ -46,7 +51,11 @@ const Body1 = () => {
         <button
           className="search-btn"
           onClick={() => {
-            const data = filterRestaurants(searchText, restaurantList2);
+            const data = filterRestaurants(
+              searchText,
+              restaurantList2,
+              setNoResult
+            );
             setRestaurants(data);
           }}
         >
@@ -61,9 +70,13 @@ const Body1 = () => {
           Reset
         </button>
       </div>
-      {restaurants.map((restaurant, index) => (
-        <RestaurantCard info={restaurant.info} key={restaurant.info.id} />
-      ))}
+      {noResult ? (
+        <NoResult />
+      ) : (
+        restaurants.map((restaurant, index) => (
+          <RestaurantCard info={restaurant.info} key={restaurant.info.id} />
+        ))
+      )}
     </div>
   );
 };

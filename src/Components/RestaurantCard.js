@@ -1,13 +1,12 @@
+import { imagePath } from "./Constants2";
+
 const RestaurantCard = ({ info }) => {
   // const { name, cuisine, rating, imageUrl } = restaurant; //instead of doing this we can also use restaurant. any property as well.
   return (
     <div className="card">
       <img
         className="card-img"
-        src={
-          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-          info.cloudinaryImageId
-        }
+        src={imagePath + info.cloudinaryImageId}
         alt="Burger King"
       />
       <div className="card-content">
