@@ -7,7 +7,7 @@ const RestaurantCard = ({ info }) => {
       <img
         className="card-img"
         src={imagePath + info.cloudinaryImageId}
-        alt="Burger King"
+        alt={info.name}
       />
       <div className="card-content">
         <h2 className="card-title">{info.name}</h2>

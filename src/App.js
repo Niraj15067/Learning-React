@@ -1,23 +1,29 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import * as XYZ from "./Components/Header";
 import Body1 from "./Components/Body1";
 import Footer from "./Components/Footer";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import About from "./Components/About";
+// import About from "./Components/About";
 import Error from "./Components/Error";
 import Contact from "./Components/Contact";
-import RestaurantMenu from "./RestaurantMenu";
-
+import RestaurantMenu from "./Components/RestaurantMenu";
 import HeaderComponent, { Title } from "./Components/Header"; //importing named and default export on the same line.
-import About from "./Components/About";
+import Demo from "./Components/Demo";
+import Shimmer from "./Components/Shimmer";
+import Login from "./Components/Login";
+import ProtectedRoute from "./Components/ProtectedRoute";
+
+const About = lazy(() => import("./Components/About"));
+const Instamart = lazy(() => import("./Components/Instamart"));
+
 const heading1 = React.createElement(
   "h1",
   {
     id: "title",
     key: "h1",
   },
-  "Hi Niraj!!"
+  "Hi Niraj!!",
 );
 const heading2 = React.createElement(
   "h2",
@@ -25,7 +31,7 @@ const heading2 = React.createElement(
     id: "title",
     key: "h2",
   },
-  "What's up!!"
+  "What's up!!",
 );
 const heading3 = React.createElement(
   "h3",
@@ -33,7 +39,7 @@ const heading3 = React.createElement(
     id: "title",
     key: "h3",
   },
-  "Have you fucked hitomi already?"
+  "Have you fucked hitomi already?",
 );
 const container = React.createElement("div", { id: "container" }, [
   heading1,
@@ -82,7 +88,7 @@ const Component = () => {
 
 const CssComponent = () => {
   return (
-    <div class="container">
+    <div className="container">
       <div class="box">Box 1</div>
       <div class="box">Box 2</div>
       <div class="box">Box 3</div>
@@ -160,10 +166,64 @@ const AppLayout = () => {
     </>
   );
 };
+// const appRouter = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <AppLayout />,
+//     errorElement: <Error />,
+//     children: [
+//       {
+//         path: "/login",
+//         element: <Login />,
+//       },
+//       {
+//         path: "/",
+//         element: (
+//           <ProtectedRoute>
+//             <Body1 />
+//           </ProtectedRoute>
+//         ),
+//       },
+//       {
+//         path: "/about",
+//         element: (
+//           <Suspense fallback={<Shimmer />}>
+//             <About />
+//           </Suspense>
+//         ),
+//       },
+//       {
+//         path: "/contact",
+//         element: <Contact />,
+//       },
+//       {
+//         path: "/home",
+//         element: <Body1 />,
+//       },
+//       {
+//         path: "/restaurant/:id", //when we want to give dynamic value give : and the name
+//         element: <RestaurantMenu />,
+//       },
+//       {
+//         path: "/restaurant/demo",
+//         element: <Demo />,
+//       },
+//     ],
+//   },
+// ]);
 const appRouter = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+
+  {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <Error />,
     children: [
       {
@@ -171,20 +231,37 @@ const appRouter = createBrowserRouter([
         element: <Body1 />,
       },
       {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-      {
-        path: "/home",
+        path: "home",
         element: <Body1 />,
       },
       {
-        path: "/restaurant/:id",
+        path: "about",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: "instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
+      },
+      { path: "cart", element: <h1>Cart</h1> },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "restaurant/:id",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "restaurant/demo",
+        element: <Demo />,
       },
     ],
   },

@@ -187,7 +187,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* Login Button Style */
@@ -216,4 +218,16 @@
   background: linear-gradient(135deg, #d32f2f, #ef5350);
   transform: scale(1.05);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+.invalid-path {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  text-align: center;
+
+  gap: 20px;
+  padding: 20px;
 }

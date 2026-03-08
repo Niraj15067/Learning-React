@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Title = () => {
   return (
@@ -12,11 +12,26 @@ const Title = () => {
     </a>
   );
 };
-function authenticateUser(isLoggedIn, setIsLoggedIn) {
-  isLoggedIn ? setIsLoggedIn(false) : setIsLoggedIn(true);
-}
+
 const HeaderComponent = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("login") === "true",
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("login") === "true";
+    setIsLoggedIn(loginStatus);
+  }, []);
+
+  const logOut = () => {
+    localStorage.removeItem("login");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <div className="header">
@@ -32,22 +47,22 @@ const HeaderComponent = () => {
           <li key="contact">
             <Link to="/contact">Contact</Link>
           </li>
+          <li>
+            <Link to="/instamart">Instamart</Link>
+          </li>
           <li key="cart">
             <Link to="/cart">Cart</Link>
           </li>
+          <li key="demo">
+            <Link to="/restaurant/demo">Demo</Link>
+          </li>
         </ul>
         {isLoggedIn ? (
-          <button
-            className="button button-logout"
-            onClick={() => authenticateUser(isLoggedIn, setIsLoggedIn)}
-          >
+          <button className="button button-logout" onClick={logOut}>
             Logout
           </button>
         ) : (
-          <button
-            className="button button-login"
-            onClick={() => authenticateUser(isLoggedIn, setIsLoggedIn)}
-          >
+          <button className="button button-login" onClick={goToLogin}>
             Login
           </button>
         )}

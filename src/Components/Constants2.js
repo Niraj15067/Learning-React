@@ -97,7 +97,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "326931",
+      id: "648172",
       name: "Chinese Wok",
       cloudinaryImageId: "b4817ea5bb972089f419c6f14e5a0bdd",
       locality: "Wardha Road",
@@ -170,7 +170,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "678820",
+      id: "53422",
       name: "Theobroma",
       cloudinaryImageId:
         "RX_THUMBNAIL/IMAGES/VENDOR/2024/10/14/9b69472f-31be-4afc-b07c-971359f9504d_678820.JPG",
@@ -438,7 +438,7 @@ export const restaurantList2 = [
   },
   {
     info: {
-      id: "63013",
+      id: "840018",
       name: "LunchBox - Meals and Thalis",
       cloudinaryImageId:
         "RX_THUMBNAIL/IMAGES/VENDOR/2024/10/16/c96385b5-a7b5-4225-b2bf-cdedf2041765_63013.jpg",

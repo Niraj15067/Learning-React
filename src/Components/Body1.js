@@ -4,25 +4,33 @@ import { useState, useEffect } from "react";
 import { restaurantList2 } from "./Constants2";
 import Shimmer from "./Shimmer";
 import NoResult from "./NoResult";
-
-function filterRestaurants(searchText, restaurants, setNoResult) {
-  const result = restaurants.filter((rest) =>
-    rest.info.name.toLowerCase().includes(searchText.toLowerCase())
-  );
-  if (result.length === 0) {
-    setNoResult(true);
-  }
-  return result;
-}
+import { Link } from "react-router-dom";
+import { filterRestaurants } from "../utils/helper";
+import useOnline from "../utils/useOnline";
+import offline from "../../assets/offline.jpg";
 
 const Body1 = () => {
-  const [searchText, setSearchText] = useState("KFC");
+  const [searchText, setSearchText] = useState("");
   const [restaurants, setRestaurants] = useState(restaurantList2);
   const [isLoading, setIsLoading] = useState(true);
   const [noResult, setNoResult] = useState(false);
-  function handleClick(e) {
-    setSearchText(e.target.value);
+  const status = useOnline();
+
+  if (!status) {
+    return (
+      <div>
+        <img src={offline}></img>
+        <p>You are currently offline. Please check your connection.</p>
+      </div>
+    );
   }
+
+  // function handleClick(value) {
+  //   setSearchText(value);
+  //   // restaurantList = restaurantList.filter((x) =>
+  //   //   x.info.name.toLowerCase().includes(value)
+  //   // );
+  // }
 
   // useEffect(() => {
   //   console.log("restaurant has been changed. Inisde useffect()");
@@ -32,10 +40,13 @@ const Body1 = () => {
   //   };
   // }, [restaurants]);
 
-  console.log("render");
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 1000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return isLoading ? (
     <Shimmer />
@@ -46,7 +57,8 @@ const Body1 = () => {
           type="text"
           className="search-input"
           placeholder="search"
-          onChange={handleClick}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
         ></input>
         <button
           className="search-btn"
@@ -54,7 +66,7 @@ const Body1 = () => {
             const data = filterRestaurants(
               searchText,
               restaurantList2,
-              setNoResult
+              setNoResult,
             );
             setRestaurants(data);
           }}
@@ -64,7 +76,9 @@ const Body1 = () => {
         <button
           className="search-btn"
           onClick={() => {
+            setSearchText("");
             setRestaurants(restaurantList2);
+            setNoResult(false);
           }}
         >
           Reset
@@ -73,9 +87,16 @@ const Body1 = () => {
       {noResult ? (
         <NoResult />
       ) : (
-        restaurants.map((restaurant, index) => (
-          <RestaurantCard info={restaurant.info} key={restaurant.info.id} />
-        ))
+        restaurants
+          .filter((x) => x.info.name.toLowerCase().includes(searchText))
+          .map((restaurant, index) => (
+            <Link
+              to={"/restaurant/" + restaurant.info.id}
+              style={{ textDecoration: "none" }}
+            >
+              <RestaurantCard info={restaurant.info} key={restaurant.info.id} />
+            </Link>
+          ))
       )}
     </div>
   );
